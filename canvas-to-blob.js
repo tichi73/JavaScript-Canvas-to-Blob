@@ -76,8 +76,9 @@
                 callback(this.mozGetAsFile('blob', type));
             };
         } else if (CanvasPrototype.toDataURL && dataURLtoBlob) {
-            CanvasPrototype.toBlob = function (callback, type) {
-                callback(dataURLtoBlob(this.toDataURL(type)));
+            CanvasPrototype.toBlob = function() {
+                var callback = Array.prototype.shift.call(arguments);
+                callback(dataURLtoBlob(CanvasPrototype.toDataURL.apply(this, arguments)));
             };
         }
     }
